@@ -20,13 +20,15 @@ Owclgw37wELamJRWCL/cJh6kiJnfnuwJvMOUxxbVEuMZNv7sB27q8FuEgG8dFdY4
 7A2AmuzHuLqsa87H21X3v/G8rPfh+NnVbx8ijEihDAhVhFBOut0LsWDakJAM
  -----END CERTIFICATE-----"
 Set-Content CA.cer -Value $CA
-Write-Host "CA created" -ForegroundColor Green
-Import-Certificate -FilePath 'CA.cer' -CertStoreLocation 'Cert:\CurrentUser\Root'
-Write-Host "CA installed Root" -ForegroundColor Green
-Import-Certificate -FilePath 'CA.cer' -CertStoreLocation 'Cert:\CurrentUser\CA'
-Write-Host "CA installed CA" -ForegroundColor Green
-Remove-Item –path 'CA.cer' –recurse
-Write-Host "CA deleted" -ForegroundColor Green
-$key = Read-Host "Please enter L2TP key"
-Add-VpnConnection -Name "Kit-Kat" -ServerAddress "213.251.249.196" -TunnelType L2TP -L2tpPsk $kye -Force -EncryptionLevel "Required" -AuthenticationMethod MSChapv2 -RememberCredential
-Write-Host "Сonnection Сreated" -ForegroundColor Green
+$bat= "certutil -user -addstore "Root" ca.cer
+certutil -user -addstore "Trust" ca.cer
+certutil -user -addstore "CA" ca.cer
+DEL ca.cer
+cls
+set /p key=Enter L2tpPsk key: 
+powershell -Command "Add-VpnConnection -Name "Kit-Kat" -ServerAddress "213.251.249.196" -TunnelType L2TP -L2tpPsk "%key%" -Force -EncryptionLevel "Required" -AuthenticationMethod MSChapv2 -RememberCredential"
+echo auth-user-pass pass.txt >> %AppData%\Microsoft\Network\Connections\Pbk\rasphone.pbk
+echo completed
+TIMEOUT /T -1"
+Set-Content Kit-Kat.cmd -Value $bat
+cmd Kit-Kat.cmd
