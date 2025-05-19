@@ -28,5 +28,5 @@ Write-Host "CA installed CA" -ForegroundColor Green
 Remove-Item –path 'CA.cer' –recurse
 Write-Host "CA deleted" -ForegroundColor Green
 $key = Read-Host "Please enter L2TP key"
-Add-VpnConnection -Name "Kit-Kat" -ServerAddress "213.251.249.196" -TunnelType L2TP -L2tpPsk $kye -Force -EncryptionLevel "Required" -AuthenticationMethod MSChapv2 -RememberCredential
+Add-VpnConnection -Name "Kit-Kat" -ServerAddress "213.251.249.196" -TunnelType L2TP -L2tpPsk $key -Force -EncryptionLevel "Required" -AuthenticationMethod MSChapv2 -RememberCredential
 Write-Host "Сonnection Сreated" -ForegroundColor Green
