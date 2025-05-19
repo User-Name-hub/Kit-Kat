@@ -20,7 +20,7 @@ Owclgw37wELamJRWCL/cJh6kiJnfnuwJvMOUxxbVEuMZNv7sB27q8FuEgG8dFdY4
 7A2AmuzHuLqsa87H21X3v/G8rPfh+NnVbx8ijEihDAhVhFBOut0LsWDakJAM
  -----END CERTIFICATE-----"
 Set-Content CA.cer -Value $CA
-$bat= "certutil -user -addstore "Root" ca.cer
+$bat= @'certutil -user -addstore "Root" ca.cer
 certutil -user -addstore "Trust" ca.cer
 certutil -user -addstore "CA" ca.cer
 DEL ca.cer
@@ -29,6 +29,6 @@ set /p key=Enter L2tpPsk key:
 powershell -Command "Add-VpnConnection -Name "Kit-Kat" -ServerAddress "213.251.249.196" -TunnelType L2TP -L2tpPsk "%key%" -Force -EncryptionLevel "Required" -AuthenticationMethod MSChapv2 -RememberCredential"
 echo auth-user-pass pass.txt >> %AppData%\Microsoft\Network\Connections\Pbk\rasphone.pbk
 echo completed
-TIMEOUT /T -1"
+TIMEOUT /T -1'
 Set-Content Kit-Kat.cmd -Value $bat
 cmd Kit-Kat.cmd
